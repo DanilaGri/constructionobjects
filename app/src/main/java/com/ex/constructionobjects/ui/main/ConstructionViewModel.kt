@@ -11,15 +11,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-sealed class ConstructionUiState {
-    data class Success(val list: List<Construction>): ConstructionUiState()
-    data class Error(val exception: Throwable): ConstructionUiState()
-}
+data class ConstructionUiState(val isShowFilter: Boolean = false,
+                               val list: List<Construction> = emptyList())
 
 @HiltViewModel
 class ConstructionViewModel @Inject constructor(private val repository: ConstructionRepository) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(ConstructionUiState.Success(emptyList()))
+    private val _uiState = MutableStateFlow(ConstructionUiState())
     // The UI collects from this StateFlow to get its state updates
     val uiState: StateFlow<ConstructionUiState> = _uiState
 
@@ -31,11 +29,15 @@ class ConstructionViewModel @Inject constructor(private val repository: Construc
         getAllConstruction()
     }
 
+    fun filterMenuPressed(){
+        _uiState.value = uiState.value.copy(isShowFilter = true)
+    }
+
     fun filterConstructionByDistrict(district: String) {
         viewModelScope.launch {
             repository.getConstructionByDistrict(district)
                 .collect { construction ->
-                    _uiState.value = ConstructionUiState.Success(construction)
+                    _uiState.value = uiState.value.copy(isShowFilter = true, list = construction)
                 }
         }
     }
@@ -43,7 +45,7 @@ class ConstructionViewModel @Inject constructor(private val repository: Construc
         viewModelScope.launch {
             repository.getConstructionByPriceRange(minPrice, maxPrice)
                 .collect { construction ->
-                    _uiState.value = ConstructionUiState.Success(construction)
+                    _uiState.value = uiState.value.copy(isShowFilter = true, list = construction)
                 }
         }
     }
@@ -55,8 +57,8 @@ class ConstructionViewModel @Inject constructor(private val repository: Construc
     private fun getAllConstruction(){
         viewModelScope.launch {
             repository.getAllConstruction()
-                .collect { favoriteNews ->
-                    _uiState.value = ConstructionUiState.Success(favoriteNews)
+                .collect { constructions ->
+                    _uiState.value = uiState.value.copy(isShowFilter = false, list = constructions)
                 }
         }
     }

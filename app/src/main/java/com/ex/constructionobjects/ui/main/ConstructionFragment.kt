@@ -74,11 +74,8 @@ class ConstructionFragment : Fragment(), MenuProvider {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { uiState ->
-                    // New value received
-                    when (uiState) {
-                        is ConstructionUiState.Success ->  adapter?.submitList(uiState.list)
-                        is ConstructionUiState.Error -> showError(uiState.exception)
-                    }
+                    adapter?.submitList(uiState.list)
+                    binding.filterLayout.visibility = if(uiState.isShowFilter) View.VISIBLE else View.GONE
                 }
             }
         }
@@ -96,7 +93,6 @@ class ConstructionFragment : Fragment(), MenuProvider {
         }
 
         binding.filterCloseButton.setOnClickListener{
-            binding.filterLayout.visibility = View.GONE
             viewModel.resetFilter()
         }
     }
@@ -142,7 +138,7 @@ class ConstructionFragment : Fragment(), MenuProvider {
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
             R.id.action_filer -> {
-                binding.filterLayout.visibility = View.VISIBLE
+                viewModel.filterMenuPressed()
                 return true
             }
             else -> {}
