@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/ConstructionFragment">
+
+    <fragment
+        android:id="@+id/ConstructionFragment"
+        android:name="com.ex.constructionobjects.ui.main.ConstructionFragment"
+        android:label="@string/construction_fragment_label"
+        tools:layout="@layout/fragment_construction">
+
+        <action
+            android:id="@+id/action_ConstructionFragment_to_addConstructionFragment"
+            app:destination="@id/addConstructionFragment" />
+        <action
+            android:id="@+id/action_ConstructionFragment_to_editConstructionFragment"
+            app:destination="@id/editConstructionFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addConstructionFragment"
+        android:name="com.ex.constructionobjects.ui.add.AddConstructionFragment"
+        android:label="AddConstructionFragment" />
+    <fragment
+        android:id="@+id/editConstructionFragment"
+        android:name="com.ex.constructionobjects.ui.edit.EditConstructionFragment"
+        android:label="EditConstructionFragment" >
+        <argument
+            android:name="constructionId"
+            app:argType="long" />
+    </fragment>
+</navigation>
