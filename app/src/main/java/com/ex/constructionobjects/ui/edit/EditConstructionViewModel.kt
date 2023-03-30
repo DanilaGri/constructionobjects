@@ -11,21 +11,22 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
-
 sealed class EditConstructionState {
-    data class Success(val construction: Construction? = null): EditConstructionState()
-    //later if use network
+    data class Success(val construction: Construction? = null) : EditConstructionState()
+    // later if use network
 //    data class Error(val exception: Throwable): EditConstructionState()
 }
 
 @HiltViewModel
-class EditConstructionViewModel @Inject constructor(private val st: SavedStateHandle,
-                                                    private val repository: ConstructionRepository) : ViewModel() {
+class EditConstructionViewModel @Inject constructor(
+    private val st: SavedStateHandle,
+    private val repository: ConstructionRepository
+) : ViewModel() {
 
     private val constructionId: Long = st.get<Long>(CONSTRUCTION_ID_STATE_KEY)!!
 
     private val _uiState = MutableStateFlow(EditConstructionState.Success(null))
+
     // The UI collects from this StateFlow to get its state updates
     val uiState: StateFlow<EditConstructionState> = _uiState
 
@@ -40,9 +41,7 @@ class EditConstructionViewModel @Inject constructor(private val st: SavedStateHa
         repository.updateConstruction(construction)
     }
 
-
     companion object {
         private const val CONSTRUCTION_ID_STATE_KEY = "constructionId"
     }
-
 }

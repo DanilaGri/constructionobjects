@@ -5,19 +5,21 @@ import androidx.lifecycle.viewModelScope
 import com.ex.constructionobjects.data.ConstructionRepository
 import com.ex.constructionobjects.data.model.Construction
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-data class ConstructionUiState(val isShowFilter: Boolean = false,
-                               val list: List<Construction> = emptyList())
+data class ConstructionUiState(
+    val isShowFilter: Boolean = false,
+    val list: List<Construction> = emptyList()
+)
 
 @HiltViewModel
 class ConstructionViewModel @Inject constructor(private val repository: ConstructionRepository) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ConstructionUiState())
+
     // The UI collects from this StateFlow to get its state updates
     val uiState: StateFlow<ConstructionUiState> = _uiState
 
@@ -25,11 +27,11 @@ class ConstructionViewModel @Inject constructor(private val repository: Construc
         getAllConstruction()
     }
 
-    fun resetFilter(){
+    fun resetFilter() {
         getAllConstruction()
     }
 
-    fun filterMenuPressed(){
+    fun filterMenuPressed() {
         _uiState.value = uiState.value.copy(isShowFilter = true)
     }
 
@@ -54,7 +56,7 @@ class ConstructionViewModel @Inject constructor(private val repository: Construc
         repository.deleteConstruction(construction)
     }
 
-    private fun getAllConstruction(){
+    private fun getAllConstruction() {
         viewModelScope.launch {
             repository.getAllConstruction()
                 .collect { constructions ->
@@ -62,5 +64,4 @@ class ConstructionViewModel @Inject constructor(private val repository: Construc
                 }
         }
     }
-
 }

@@ -20,7 +20,6 @@ import com.ex.constructionobjects.databinding.FragmentConstructionBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
@@ -35,16 +34,15 @@ class ConstructionFragment : Fragment(), MenuProvider {
     // onDestroyView.
     private val binding get() = _binding!!
 
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentConstructionBinding.inflate(inflater, container, false)
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,7 +51,7 @@ class ConstructionFragment : Fragment(), MenuProvider {
         // инициализация RecyclerView и адаптера
         adapter = ConstructionAdapter(object : ConstructionAdapter.OnConstructionClickListener {
             override fun onEdit(position: Int) {
-                val currentList =  adapter?.currentList?.toMutableList()
+                val currentList = adapter?.currentList?.toMutableList()
                 currentList?.get(position)?.let {
                     val bundle = bundleOf("constructionId" to it.id)
                     findNavController().navigate(R.id.action_ConstructionFragment_to_editConstructionFragment, bundle)
@@ -61,7 +59,7 @@ class ConstructionFragment : Fragment(), MenuProvider {
             }
 
             override fun onDelete(position: Int) {
-                val currentList =  adapter?.currentList?.toMutableList()
+                val currentList = adapter?.currentList?.toMutableList()
                 currentList?.get(position)?.let { viewModel.delete(it) }
                 currentList?.removeAt(position)
                 adapter?.submitList(currentList)
@@ -75,7 +73,7 @@ class ConstructionFragment : Fragment(), MenuProvider {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { uiState ->
                     adapter?.submitList(uiState.list)
-                    binding.filterLayout.visibility = if(uiState.isShowFilter) View.VISIBLE else View.GONE
+                    binding.filterLayout.visibility = if (uiState.isShowFilter) View.VISIBLE else View.GONE
                 }
             }
         }
@@ -84,22 +82,21 @@ class ConstructionFragment : Fragment(), MenuProvider {
             findNavController().navigate(R.id.action_ConstructionFragment_to_addConstructionFragment)
         }
 
-        binding.filterDistrictButton.setOnClickListener{
+        binding.filterDistrictButton.setOnClickListener {
             showDistrictFilterDialog()
         }
 
-        binding.filterPriceButton.setOnClickListener{
+        binding.filterPriceButton.setOnClickListener {
             showPriceFilterDialog()
         }
 
-        binding.filterCloseButton.setOnClickListener{
+        binding.filterCloseButton.setOnClickListener {
             viewModel.resetFilter()
         }
     }
 
-
     private fun showError(exception: Throwable) {
-        Toast.makeText(requireContext(),exception.message,Toast.LENGTH_LONG).show()
+        Toast.makeText(requireContext(), exception.message, Toast.LENGTH_LONG).show()
     }
 
     private fun showDistrictFilterDialog() {

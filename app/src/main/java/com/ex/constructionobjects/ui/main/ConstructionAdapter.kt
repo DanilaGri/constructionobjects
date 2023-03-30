@@ -10,10 +10,9 @@ import com.ex.constructionobjects.R
 import com.ex.constructionobjects.data.model.Construction
 import com.ex.constructionobjects.databinding.ItemConstructionBinding
 
-class ConstructionAdapter (
+class ConstructionAdapter(
     private val mOnConstructionClickListener: OnConstructionClickListener
 ) : ListAdapter<Construction, ConstructionAdapter.ConstructionViewHolder>(DiffCallback) {
-
 
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<Construction>() {

@@ -14,5 +14,4 @@ class AddConstructionViewModel @Inject constructor(private val repository: Const
     fun addNewConstruction(constructionObject: Construction) = viewModelScope.launch {
         repository.addNewConstruction(constructionObject)
     }
-
 }

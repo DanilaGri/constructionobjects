@@ -1,10 +1,10 @@
 package com.ex.constructionobjects.ui.add
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ex.constructionobjects.data.model.Construction
@@ -14,7 +14,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class AddConstructionFragment : Fragment() {
 
-
     private var _binding: FragmentAddConstructionBinding? = null
     private val viewModel: AddConstructionViewModel by viewModels()
 
@@ -23,12 +22,12 @@ class AddConstructionFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAddConstructionBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,11 +38,10 @@ class AddConstructionFragment : Fragment() {
 
             findNavController().popBackStack()
         }
-
     }
 
     // get construction
-    private fun getConstruction() : Construction{
+    private fun getConstruction(): Construction {
         val name = binding.addConstructionName.text.toString()
         val description = binding.addConstructionDescription.text.toString()
         val area = binding.addAreaDescription.text.toString()
@@ -53,9 +51,8 @@ class AddConstructionFragment : Fragment() {
         val type = binding.addTypeDescription.text.toString()
         val preview = binding.addConstructionImage.text.toString()
 
-        return Construction(0,name,description,area,district,floors,price,type,preview)
+        return Construction(0, name, description, area, district, floors, price, type, preview)
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -1,6 +1,5 @@
 package com.ex.constructionobjects.data.model
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
@@ -27,5 +26,5 @@ interface ConstructionDao {
 
     @Query("SELECT * FROM construction WHERE price BETWEEN :minPrice AND :maxPrice")
     fun getConstructionByPriceRange(minPrice: Double, maxPrice: Double):
-            Flow<List<Construction>>
+        Flow<List<Construction>>
 }

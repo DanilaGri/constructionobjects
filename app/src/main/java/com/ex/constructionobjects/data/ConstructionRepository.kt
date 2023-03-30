@@ -15,7 +15,6 @@ class ConstructionRepository @Inject constructor(private val constructionDao: Co
 
     suspend fun getConstructionById(id: Long) = constructionDao.getConstructionById(id)
 
-
     suspend fun addNewConstruction(constructionObject: Construction) {
         constructionDao.insertConstruction(constructionObject)
     }
