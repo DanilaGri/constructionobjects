@@ -7,24 +7,24 @@ import kotlinx.coroutines.flow.Flow
 interface ConstructionDao {
 
     @Query("SELECT * FROM construction")
-    fun getAllConstructions(): Flow<List<Construction>>
+    fun getAllConstructions(): Flow<List<ConstructionLocal>>
 
     @Query("SELECT * FROM construction WHERE id=:id")
-    suspend fun getConstructionById(id: Long): Construction?
+    suspend fun getConstructionById(id: Long): ConstructionLocal?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertConstruction(construction: Construction)
+    suspend fun insertConstruction(construction: ConstructionLocal)
 
     @Update
-    suspend fun updateConstruction(construction: Construction)
+    suspend fun updateConstruction(construction: ConstructionLocal)
 
-    @Delete
-    suspend fun deleteConstruction(construction: Construction)
+    @Query("DELETE FROM construction WHERE id=:id")
+    suspend fun deleteConstruction(id: Long)
 
     @Query("SELECT * FROM construction WHERE district=:district")
-    fun getConstructionByDistrict(district: String): Flow<List<Construction>>
+    fun getConstructionByDistrict(district: String): Flow<List<ConstructionLocal>>
 
     @Query("SELECT * FROM construction WHERE price BETWEEN :minPrice AND :maxPrice")
     fun getConstructionByPriceRange(minPrice: Double, maxPrice: Double):
-        Flow<List<Construction>>
+        Flow<List<ConstructionLocal>>
 }

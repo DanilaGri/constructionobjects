@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ex.constructionobjects.data.model.Construction
+import com.ex.constructionobjects.data.model.ConstructionLocal
 import com.ex.constructionobjects.databinding.FragmentAddConstructionBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,7 +42,7 @@ class AddConstructionFragment : Fragment() {
     }
 
     // get construction
-    private fun getConstruction(): Construction {
+    private fun getConstruction(): ConstructionLocal {
         val name = binding.addConstructionName.text.toString()
         val description = binding.addConstructionDescription.text.toString()
         val area = binding.addAreaDescription.text.toString()
@@ -51,7 +52,7 @@ class AddConstructionFragment : Fragment() {
         val type = binding.addTypeDescription.text.toString()
         val preview = binding.addConstructionImage.text.toString()
 
-        return Construction(0, name, description, area, district, floors, price, type, preview)
+        return ConstructionLocal(0, name, description, area, district, floors, price, type, preview)
     }
 
     override fun onDestroyView() {

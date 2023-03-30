@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ex.constructionobjects.data.ConstructionRepository
 import com.ex.constructionobjects.data.model.Construction
+import com.ex.constructionobjects.data.model.ConstructionLocal
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 sealed class EditConstructionState {
-    data class Success(val construction: Construction? = null) : EditConstructionState()
+    data class Success(val construction: ConstructionLocal? = null) : EditConstructionState()
     // later if use network
 //    data class Error(val exception: Throwable): EditConstructionState()
 }
@@ -37,7 +38,7 @@ class EditConstructionViewModel @Inject constructor(
         }
     }
 
-    fun updateConstruction(construction: Construction) = viewModelScope.launch {
+    fun updateConstruction(construction: ConstructionLocal) = viewModelScope.launch {
         repository.updateConstruction(construction)
     }
 

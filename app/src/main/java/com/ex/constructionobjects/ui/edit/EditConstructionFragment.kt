@@ -11,6 +11,7 @@ import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ex.constructionobjects.data.model.Construction
+import com.ex.constructionobjects.data.model.ConstructionLocal
 import com.ex.constructionobjects.databinding.FragmentEditConstructionBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -59,7 +60,7 @@ class EditConstructionFragment : Fragment() {
     }
 
     // update UI with construction data
-    private fun updateUI(construction: Construction) {
+    private fun updateUI(construction: ConstructionLocal) {
         binding.edConstructionName.setText(construction.name)
         binding.edConstructionDescription.setText(construction.description)
         binding.edAreaDescription.setText(construction.area)
@@ -71,7 +72,7 @@ class EditConstructionFragment : Fragment() {
     }
 
     // get updated construction
-    private fun getUpdatedConstruction(): Construction {
+    private fun getUpdatedConstruction(): ConstructionLocal {
         val constructionId = args.constructionId
         val name = binding.edConstructionName.text.toString()
         val description = binding.edConstructionDescription.text.toString()
@@ -82,7 +83,7 @@ class EditConstructionFragment : Fragment() {
         val type = binding.edTypeDescription.text.toString()
         val preview = binding.edConstructionImage.text.toString()
 
-        return Construction(constructionId, name, description, area, district, floors, price, type, preview)
+        return ConstructionLocal(constructionId, name, description, area, district, floors, price, type, preview)
     }
 
     override fun onDestroyView() {
