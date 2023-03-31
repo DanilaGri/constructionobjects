@@ -42,6 +42,12 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    // Always show the result of every unit test when running via command line, even if it passes.
+    testOptions.unitTests {
+        includeAndroidResources = true
+
+    }
 }
 
 dependencies {
@@ -53,9 +59,19 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    //test
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    androidTestImplementation 'org.mockito:mockito-android:2.24.5'
+    implementation 'androidx.arch.core:core-testing:2.2.0'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
+
+    testImplementation "org.mockito:mockito-core:4.0.0"
+    testImplementation 'org.mockito:mockito-inline:3.7.7'
+    testImplementation "org.mockito.kotlin:mockito-kotlin:4.0.0"
 
     // Hilt
     implementation "com.google.dagger:hilt-android:2.44.2"
@@ -68,10 +84,10 @@ dependencies {
     // Gson
     implementation "com.google.code.gson:gson:2.9.0"
     // Room
-    implementation "androidx.room:room-runtime:2.5.0"
-    kapt "androidx.room:room-compiler:2.5.0"
-    implementation "androidx.room:room-ktx:2.5.0"
-    def lifecycle_version = "2.6.0"
+    implementation "androidx.room:room-runtime:2.5.1"
+    kapt "androidx.room:room-compiler:2.5.1"
+    implementation "androidx.room:room-ktx:2.5.1"
+    def lifecycle_version = "2.6.1"
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     // ViewModel utilities for Compose
@@ -88,7 +104,7 @@ dependencies {
     // Flow
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-reactive:1.6.4"
     //Glide
-    implementation 'com.github.bumptech.glide:glide:4.13.1'
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
 
 }
 

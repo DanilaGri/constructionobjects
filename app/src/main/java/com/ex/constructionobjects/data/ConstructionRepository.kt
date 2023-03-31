@@ -37,15 +37,4 @@ class ConstructionRepository @Inject constructor(private val constructionDao: Co
     fun getConstructionByPriceRange(minPrice: Double, maxPrice: Double): Flow<List<Construction>> {
         return constructionDao.getConstructionByPriceRange(minPrice, maxPrice).map { it.toExternal() }
     }
-
-    companion object {
-
-        // For Singleton instantiation
-        @Volatile private var instance: ConstructionRepository? = null
-
-        fun getInstance(constructionDao: ConstructionDao) =
-            instance ?: synchronized(this) {
-                instance ?: ConstructionRepository(constructionDao).also { instance = it }
-            }
-    }
 }
