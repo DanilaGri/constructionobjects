@@ -9,12 +9,13 @@ import com.ex.constructionobjects.data.model.ConstructionLocal
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 sealed class EditConstructionState {
     data class Success(val construction: ConstructionLocal? = null) : EditConstructionState()
-    // later if use network
+    // later
 //    data class Error(val exception: Throwable): EditConstructionState()
 }
 
@@ -29,7 +30,7 @@ class EditConstructionViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(EditConstructionState.Success(null))
 
     // The UI collects from this StateFlow to get its state updates
-    val uiState: StateFlow<EditConstructionState> = _uiState
+    val uiState: StateFlow<EditConstructionState> = _uiState.asStateFlow()
 
     init {
         viewModelScope.launch {

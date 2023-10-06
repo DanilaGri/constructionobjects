@@ -22,9 +22,7 @@ class EditConstructionFragment : Fragment() {
     private var _binding: FragmentEditConstructionBinding? = null
     private val viewModel: EditConstructionViewModel by viewModels()
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private val binding get() = checkNotNull(_binding)
 
     private val args: EditConstructionFragmentArgs by navArgs()
 

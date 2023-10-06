@@ -41,7 +41,6 @@ class ConstructionAdapter(
         fun bind(construction: Construction) {
             binding.apply {
                 tvConstructionName.text = construction.name
-                // загрузить изображение превью с помощью библиотеки Glide
                 Glide.with(itemView.context)
                     .load(construction.preview)
                     .placeholder(R.drawable.ic_launcher_background)

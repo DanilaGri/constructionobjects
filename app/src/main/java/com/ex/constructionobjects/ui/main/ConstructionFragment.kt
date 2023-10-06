@@ -30,9 +30,7 @@ class ConstructionFragment : Fragment(), MenuProvider {
     private var adapter: ConstructionAdapter? = null
     private val viewModel: ConstructionViewModel by viewModels()
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private val binding get() = checkNotNull(_binding)
 
     override fun onCreateView(
         inflater: LayoutInflater,

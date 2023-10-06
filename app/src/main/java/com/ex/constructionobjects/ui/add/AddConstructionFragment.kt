@@ -17,10 +17,7 @@ class AddConstructionFragment : Fragment() {
 
     private var _binding: FragmentAddConstructionBinding? = null
     private val viewModel: AddConstructionViewModel by viewModels()
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private val binding get() = checkNotNull(_binding)
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -7,6 +7,7 @@ import com.ex.constructionobjects.data.model.Construction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,7 +22,7 @@ class ConstructionViewModel @Inject constructor(private val repository: Construc
     private val _uiState = MutableStateFlow(ConstructionUiState())
 
     // The UI collects from this StateFlow to get its state updates
-    val uiState: StateFlow<ConstructionUiState> = _uiState
+    val uiState: StateFlow<ConstructionUiState> = _uiState.asStateFlow()
 
     init {
         getAllConstruction()
